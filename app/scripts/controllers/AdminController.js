@@ -2,10 +2,11 @@ angular.module('AngularScaffold.Controllers')
 .controller('AdminController', ['$scope', 'UserService', '$sessionStorage', function ($scope, UserService, $sessionStorage) {
   $scope.title = "Navidad"
   $scope.template = '';
+  $scope.regalo='';
   
   $scope.getRegalos = function(){
     UserService.GetRegalos().then(function(response){
-      $scope.Regalos = response.data;
+      $scope.regalo = response.data;
     }).catch(function(err){
       alert(err.data.error + " " + err.data.message)
     });
@@ -14,7 +15,6 @@ angular.module('AngularScaffold.Controllers')
   $scope.getRegalos();
   $scope.postRegalos = function(){
     UserService.PostRegalos($scope.regalo).then(function(response){
-      alert("Posted to /Regalos");
       $scope.getRegalos();
     }).catch(function(err){
       alert(err.data.error + " " + err.data.message);
@@ -44,7 +44,7 @@ angular.module('AngularScaffold.Controllers')
   }
 
   $scope.logout = function(){
-    authService.Logout().then(function(response){
+    UserService.Logout().then(function(response){
       alert('logged out correctly');
       $sessionStorage.$reset();
     }).catch(function(err){

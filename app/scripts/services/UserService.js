@@ -1,4 +1,4 @@
-angular.module('AngularScaffold.Services').factory('AuthService', ['$http',
+angular.module('AngularScaffold.Services').factory('UserService', ['$http',
 	function($http){
 		$http.defaults.withCredentials = true;
 		var baseUrl = 'http://localhost:8000/';

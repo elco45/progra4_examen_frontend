@@ -8,24 +8,24 @@
 			<li class=""><a class="btn" data-target="#modificarProduct" ng-click="getFetch()" data-toggle="tab">Modificar Producto</a>
 			</li>
 		</ul>
-		       <div id="mensage" class="modal fade" role="dialog">
-							      <div class="modal-dialog modal-lg">
-							        <div class="modal-content">
-							          <div class="modal-header">
-							            <button type="button" class="close" data-dismiss="modal">&times;</button>
-							            <h4 class="modal-title">Control de Eliminacion</h4>
-							          </div>
-							          <div class="modal-body">
-							           		<center>
-							           			Agregado exitosamente
-							           			Espere un momento  para actualizar  la tabla
-							           			<br>
-							          			<button type="button" class="btn btn-danger caja" data-dismiss="modal">Aceptar</button>
-							           		</center>
-							          </div>
-							        </div>
-							      </div>
-							    </div>
+		<div id="mensage" class="modal fade" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Control de Eliminacion</h4>
+					</div>
+					<div class="modal-body">
+						<center>
+							Agregado exitosamente
+							Espere un momento  para actualizar  la tabla
+							<br>
+							<button type="button" class="btn btn-danger caja" data-dismiss="modal">Aceptar</button>
+						</center>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 		<div id="myTabContent" class="tab-content">
@@ -39,58 +39,54 @@
 								<td>Datos</td>
 							</tr>
 							<tr>
-								<td>ID</td>
-								<td><input type="text"  ng-model="producto.id"></td>
+								<td>Nombre</td>
+								<td><input type="text"  ng-model="regalo.nombre"></td>
 							</tr>
 							<tr>
-								<td>Descripcion</td>
-								<td><input type="text"  ng-model="producto.descripcion"></td>
+								<td>Descripción</td>
+								<td><input type="text"  ng-model="regalo.descripcion"></td>
 							</tr>
 							<tr>
-								<td>Fecha Ingreso</td>
-								<td><input type="date" class="texto" ng-model="producto.fecha_ingreso"></td>
+								<td>Peso</td>
+								<td><input type="number" class="texto" ng-model="regalo.peso"></td>
 							</tr>
 							<tr>
-								<td>Fecha Vencimiento</td>
-								<td><input type="date" class="texto" ng-model="producto.fecha_venc" ></td>
+								<td>Destinatario</td>
+								<td><input type="text"  ng-model="regalo.destinatario"  ></td>
 							</tr>
 							<tr>
-								<td>Precio</td>
-								<td><input type="number"  ng-model="producto.precio" MIN="1"  ></td>
+								<td>
+									<form>
+										<input type="radio" class="selected" name="tipo" ng-model="regalo.status" value="Pendiente de entrega" checked> Pendiente de entrega
+										<br>
+										<input type="radio" name="tipo" ng-model="regalo.status" value="Entregado"> Entregado
+									</form>
+								</td>
 							</tr>
-							<tr>
-							<td>Cantidad</td>
-								<td><input type="number"  ng-model="producto.cantidad" MIN="1" value="1"></td>
-							</tr>
-
 							<tr >
 								<td colspan="2">
-									<button class="btn btn-primary"  data-toggle="modal" data-target="#mensage"  ng-click="addProductos()">AGREGAR</button>
+									<button class="btn btn-primary"  data-toggle="modal" data-target="#mensage"  ng-click="postRegalos()">AGREGAR</button>
 								</td>
 							</tr>
 
 						</table>
-							
 					</div>
 					<div class="col-md-6 tabla_crear">
 						<table id="tabla_color" class="table table-bordered table-hover">
 							<tr class="tabla_color_encabesado">
-								<td><strong>Id</strong></td>
+								<td><strong>Nombre</strong></td>
 								<td><strong>Descripción</strong></td>
-								<td><strong>Fecha Ing</strong></td>
-								<td><strong>Fecha Venc</strong></td>
-								<td><strong>Precio</strong></td>
-								<td><strong>Cantidad</strong></td>
+								<td><strong>Peso</strong></td>
+								<td><strong>Destinatario</strong></td>
+								<td><strong>Status</strong></td>
 							</tr>
 							<tr ng-repeat="producto in productos">
-								<td>{{producto.id}}</td>
-								<td>{{producto.descripcion}}</td>
-								<td>{{producto.fecha_ingreso}}</td>
-								<td>{{producto.fecha_venc}}</td>
-								<td>{{producto.precio}}</td>
-								<td>{{producto.cantidad}}</td>
+								<td>{{regalo.nombre}}</td>
+								<td>{{regalo.descripcion}}</td>
+								<td>{{regalo.peso}}</td>
+								<td>{{regalo.destinatario}}</td>
+								<td>{{regalo.status}}</td>
 							</tr>
-
 						</table>
 					</div>
 				</div>
@@ -101,98 +97,96 @@
 			
 
 			<div class="tab-pane fade" id="modificarProduct">
-				  <div id="myModal" class="modal fade" role="dialog">
-			      <div class="modal-dialog modal-lg">
-			        <div class="modal-content">
-			          <div class="modal-header">
-			            <button type="button" class="close" data-dismiss="modal">&times;</button>
-			            <h4 class="modal-title">Modificación de Productos</h4>
-			          </div>
-			          <div class="modal-body">
-			           			<table id="tabla_color" class="table table-bordered table-hover">
+				<div id="myModal" class="modal fade" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Modificación de Productos</h4>
+							</div>
+							<div class="modal-body">
+								<table id="tabla_color" class="table table-bordered table-hover">
 									<tr class="tabla_color_encabesado">
 										<td><strong>Datos</strong></td>
 										<td><strong>Input</strong></td>
 									</tr>
 									<tr>
-										<td>ID</td>
-										<td><input type="text" placeholder="ID" class="cajas" ng-model="productoM.id"></td>
+										<td>Nombre</td>
+										<td><input type="text"  ng-model="regalo.nombre"></td>
 									</tr>
 									<tr>
-										<td><strong>Descripcion</strong></td>
-										<td><input type="text" placeholder="Descripcion" class="cajas" ng-model="productoM.descripcion"></td>
+										<td>Descripción</td>
+										<td><input type="text"  ng-model="regalo.descripcion"></td>
 									</tr>
 									<tr>
-										<td><strong>Fecha Ingreso</strong></td>
-										<td><input type="date" placeholder="Fecha Ingreso" class="cajas" ng-model="productoM.fecha_ingreso"></td>
+										<td>Peso</td>
+										<td><input type="number" class="texto" ng-model="regalo.peso"></td>
 									</tr>
 									<tr>
-										<td><strong>Fecha Vencimiento</strong></td>
-										<td><input type="date" placeholder="Fecha Vencimiento" class="cajas" ng-model="productoM.fecha_venc"></td>
+										<td>Destinatario</td>
+										<td><input type="text"  ng-model="regalo.destinatario"  ></td>
 									</tr>
 									<tr>
-										<td><strong>Precio</strong></td>
-										<td><input type="text" placeholder="Precio" class="cajas" ng-model="productoM.precio"></td>
-							 		</tr>
-							 		<tr>
-							 			<td><strong>Cantidad</strong></td>
-							 			<td><input type="text" placeholder="Cantidad" class="cajas" ng-model="productoM.cantidad"></td>
-							 		</tr>
-							 		
-							 		<tr >
-										<td colspan="2">
-											 <input type="button" class="btn btn-primary caja" value="Modificar" data-dismiss="modal" ng-click="putProd()">
-											 <button type="button" class="btn btn-danger caja" data-dismiss="modal">Cerrar</button>
+										<td>
+											<form>
+												<input type="radio" name="tipo" ng-model="regalo.status" value="Pendiente de entrega" checked> Pendiente de entrega
+												<br>
+												<input type="radio" name="tipo" ng-model="regalo.status" value="Entregado"> Entregado
+											</form>
 										</td>
 									</tr>
-							 	</table>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
+
+									<tr >
+										<td colspan="2">
+											<input type="button" class="btn btn-primary caja" value="Modificar" data-dismiss="modal" ng-click="putRegalo()">
+											<button type="button" class="btn btn-danger caja" data-dismiss="modal">Cerrar</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
-			       <div id="myModal2" class="modal fade" role="dialog">
-							      <div class="modal-dialog modal-lg">
-							        <div class="modal-content">
-							          <div class="modal-header">
-							            <button type="button" class="close" data-dismiss="modal">&times;</button>
-							            <h4 class="modal-title">Control de Eliminacion</h4>
-							          </div>
-							          <div class="modal-body">
-							           		<center>
-							           			Eliminado exitosamente
-							           			Espere un momento  para actualizar tabla
-							           			<br>
-							          			<button type="button" class="btn btn-danger caja" data-dismiss="modal">Aceptar</button>
-							           		</center>
-							          </div>
-							        </div>
-							      </div>
-							    </div>
+				<div id="myModal2" class="modal fade" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Control de Eliminacion</h4>
+							</div>
+							<div class="modal-body">
+								<center>
+									Eliminado exitosamente
+									Espere un momento  para actualizar tabla
+									<br>
+									<button type="button" class="btn btn-danger caja" data-dismiss="modal">Aceptar</button>
+								</center>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<hr>
 				<div class="row">
 					<table  id="tabla_color" class="table table-bordered table-hover">
 						<tr class="tabla_color_encabesado">
-							<td><strong>Id</strong></td>
+							<td><strong>Nombre</strong></td>
 							<td><strong>Descripción</strong></td>
-							<td><strong>Fecha Ingreso</strong></td>
-							<td><strong>Fecha Vencimiento</strong></td>
-							<td><strong>Precio</strong></td>
-							<td><strong>Cantidad</strong></td>
-							<td></td>
+							<td><strong>Peso</strong></td>
+							<td><strong>Destinatario</strong></td>
+							<td><strong>Status</strong></td>
 						</tr>
-						<tr ng-repeat="productoM in productos">
-							<td>{{productoM.id}}</td>
-							<td>{{productoM.descripcion}}</td>
-							<td>{{productoM.fecha_ingreso}}</td>
-							<td>{{productoM.fecha_venc}}</td>
-							<td>{{productoM.precio}}</td>
-							<td>{{productoM.cantidad}}</td>
+						<tr ng-repeat="producto in productos">
+							<td>{{regaloM.nombre}}</td>
+							<td>{{regaloM.descripcion}}</td>
+							<td>{{regaloM.peso}}</td>
+							<td>{{regaloM.destinatario}}</td>
+							<td>{{regaloM.status}}</td>
 							<td> 
-							 	<input type="button" class="btn btn-primary caja" value="Modificar" data-toggle="modal" data-target="#myModal" ng-click="ponerModProd(productoM)"> 
-								<input type="button" class="btn btn-danger caja" value="Eliminar"  data-toggle="modal" data-target="#myModal2" ng-click="delProd(productoM)">
+								<input type="button" class="btn btn-primary caja" value="Modificar" data-toggle="modal" data-target="#myModal" ng-click="ponerModRegalo(regaloM)"> 
+								<input type="button" class="btn btn-danger caja" value="Eliminar"  data-toggle="modal" data-target="#myModal2" ng-click="delRegalo(regaloM)">
 							</td>
 						</tr>
 					</table>
