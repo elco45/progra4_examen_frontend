@@ -7,27 +7,15 @@
 		<table  id="tabla_color" class="table table-bordered table-hover">
 			<div class="col-md-12 col-xs-6">
 				<tr class="tabla_color_encabesado">
-					<td><strong>Nombre</strong></td>
-					<td><strong>ID</strong></td>
 					<td><strong>User</strong></td>
 					<td><strong>Contraseña</strong></td>
-					<td><strong>Tipo</strong></td>
-					<td><strong>Opcion</strong></td>
+					<td></td>
 				</tr>
 			</div>
 			<div class="col-md-12 col-xs-6">
 				<tr>
-					<td><input type="text" placeholder="Nombre.." class="cajas" ng-model="user.nombre"></td>
-					<td><input type="text" placeholder="ID.." class="cajas" ng-model="user.ID"></td>
 					<td><input type="text" placeholder="User..." class="cajas" ng-model="user.username"></td>
 					<td><input type="password" placeholder="Contraseña" class="cajas" ng-model="user.password"></td>
-					<td>
-						<form>
-							<input type="radio" name="tipo" ng-model="user.scope" value="vendedor" checked> Vendedor
-							<br>
-							<input type="radio" name="tipo" ng-model="user.scope" value="admin"> Admin
-						</form>
-					</td>
 					<td>
 						<input class="btn btn-primary tamano_botones" type="button" value="Agregar" data-toggle="modal" data-target="#myModal4" ng-click="register()"> 
 					</td>
@@ -79,19 +67,11 @@
 
 			<table id="tabla_color" class="table table-bordered table-hover">
 				<tr class="tabla_color_encabesado">
-					<td><strong>Nombre</strong></td>
-					<td><strong>ID</strong></td>
 					<td><strong>User</strong></td>
-					<td><strong>Posición</strong></td>
-					<td>Eliminar</td>
 				</tr>
 				<tr ng-repeat="user in users">
-					<td>{{user.nombre}}</td>
-					<td>{{user.ID}}</td>
 					<td>{{user.username}}</td>
-					<td>{{user.scope}}</td>
 					<td>
-						
 						<input class="btn btn-danger tamano_botones" type="button" value="Eliminar"  data-toggle="modal" data-target="#myModal3" ng-click="delUser(user)"> 
 					</td>
 				</tr>

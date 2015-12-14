@@ -15,15 +15,4 @@ angular.module('AngularScaffold.Controllers')
     });
   }
 
-  $scope.register = function(){
-    var user = {username: $scope.user.username, password:  $scope.user.password};
-    HomeService.Register(user).then(function(response){
-      alert('Registered in correctly!');
-      $scope.login({username: user.username, password: user.password});
-    }).catch(function(err){
-      console.log(err);
-      alert(err.data.error + " " + err.data.message);
-    })
-  }
-
 }]);
