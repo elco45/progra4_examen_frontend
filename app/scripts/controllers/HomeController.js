@@ -1,33 +1,29 @@
 angular.module('AngularScaffold.Controllers')
-  .controller('HomeController', ['$scope', 'HomeService', '$sessionStorage', function ($scope, HomeService, $sessionStorage) {
-    	$scope.title = "Tabla de estudiantes de programamción 4."
-      $scope.exampleObject = {text: "Hola, Mundo"}
-      $scope.students = [];
-      $scope.student = {};
+.controller('HomeController', ['HomeService', '$state','$scope', '$rootScope', '$sessionStorage',  function (HomeService,$state, $scope, $rootScope, $sessionStorage) {
+  $scope.user = {};
+  $scope.$sessionStorage = $sessionStorage;
 
-      $scope.getStudents = function(){
-        HomeService.GetStudents().then(function(response){
-          $scope.students = response.data;
-        }).catch(function(err){
-          alert(err.data.error + " " + err.data.message)
-        });
-      }
+  $scope.login = function(user){
+    HomeService.Login(user).then(function(response){
+      $sessionStorage.currentUser = response.data;
+      $scope.user = {};
+      if ($sessionStorage.currentUser) {
+        $state.go('admin')
+      };
+    }).catch(function(err){
+      alert(err.data.error + " " + err.data.message);
+    });
+  }
 
-      $scope.postStudents = function(){
-        HomeService.PostStudents($scope.student).then(function(response){
-          alert("Posted to /students");
-          $scope.getStudents();
-        }).catch(function(err){
-          alert(err.data.error + " " + err.data.message);
-        });
-      }
+  $scope.register = function(){
+    var user = {username: $scope.user.username, password:  $scope.user.password};
+    HomeService.Register(user).then(function(response){
+      alert('Registered in correctly!');
+      $scope.login({username: user.username, password: user.password});
+    }).catch(function(err){
+      console.log(err);
+      alert(err.data.error + " " + err.data.message);
+    })
+  }
 
-      $scope.isAdmin = function(){
-        return $sessionStorage.currentUser && $sessionStorage.currentUser.scope.indexOf('admin') > -1;
-      }
-
-      $scope.isRegular = function(){
-        return $sessionStorage.currentUser && $sessionStorage.currentUser.scope.indexOf('regular') > -1;
-      }
-
-  }]);
+}]);

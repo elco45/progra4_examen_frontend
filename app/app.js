@@ -10,5 +10,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
             url: '/home',
             templateUrl: '/views/home.html',
             controller: 'HomeController'
-        });
+        })
+        .state('admin', {
+            url: '/admin',
+            templateUrl: '/views/admin.html',
+            controller: 'AdminController'
+        });   
 }])
